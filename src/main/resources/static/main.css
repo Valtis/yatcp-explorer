@@ -1,0 +1,36 @@
+
+
+.main-container {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    height: 80vh;
+}
+
+.insert-container {
+    padding: 5px; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.code-textarea {
+    height: 100%
+}
+
+.disasm {
+    padding: 5px; 
+    height: inherit;
+}
+
+.code-container {
+    max-height: 100%; 
+    display: inline-block; 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+.output {
+    padding: 5px; 
+    display: grid; 
+    max-height: 100%;
+}
