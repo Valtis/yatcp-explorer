@@ -15,9 +15,10 @@ extern fn write(fd: int, val buffer: byte[]);
 
 const STDOUT = 1;
 
-fn main() {
+fn main() : int {
     val buffer:byte[] = "Hello, world";
     write(STDOUT, buffer);
+    return 0;
 }
                 </textarea>
                 <button onclick="compile()">Compile</button>

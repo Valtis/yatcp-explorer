@@ -82,10 +82,16 @@ class CompileService {
             "--cap-drop", "SYS_CHROOT",
             "yatcp-explorer").start()
 
-        val finished = process.waitFor(10, TimeUnit.SECONDS)
+        var finished = process.waitFor(10, TimeUnit.SECONDS)
 
         if (!finished) {
-            process.destroyForcibly()
+            process.destroy()
+            finished = process.waitFor(10, TimeUnit.SECONDS)
+            if (!finished) {
+                process.destroyForcibly()
+                logger.warn("Process did not terminate cleanly, killing")
+            }
+
             return -98765
         }
         val retcode = process.exitValue()
