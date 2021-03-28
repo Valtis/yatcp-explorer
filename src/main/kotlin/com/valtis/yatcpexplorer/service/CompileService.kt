@@ -4,7 +4,9 @@ import com.fasterxml.jackson.module.kotlin.*
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.nio.file.Files
+import java.nio.file.attribute.PosixFilePermission
 import java.util.concurrent.TimeUnit
+import java.util.HashSet
 
 
 @Service
@@ -26,6 +28,14 @@ class CompileService {
 
         val tmpFile = Files.createTempFile("yatcp-compiler-input-file", ".ytp")
         val path = tmpFile.toAbsolutePath()
+        val permissions = HashSet<PosixFilePermission>()
+        permissions.add(PosixFilePermission.OWNER_READ)
+        permissions.add(PosixFilePermission.OWNER_WRITE)
+        permissions.add(PosixFilePermission.GROUP_READ)
+        permissions.add(PosixFilePermission.GROUP_WRITE)
+        permissions.add(PosixFilePermission.OTHERS_READ)
+        permissions.add(PosixFilePermission.OTHERS_WRITE)
+        Files.setPosixFilePermissions(path, permissions);
         try {
             val writer = Files.newBufferedWriter(path)
             writer.use {
