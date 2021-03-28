@@ -11,15 +11,20 @@ import java.util.concurrent.TimeUnit
 class CompileService {
 
     private val logger = LoggerFactory.getLogger(CompileService::class.java)
+    private val NON_ASCII_REGEX = Regex("[^\\x00-\\x7F]")
+    private val NON_PRINTABLE_ASCII = Regex("[\\p{Cntrl}&&[^\r\n\t]]")
 
     fun compile(code: String) : String {
 
+        var log_code = code.replace(NON_ASCII_REGEX, "").replace(NON_PRINTABLE_ASCII, "")
+
+        logger.info("Compiling {}", log_code)
         if (code.length > 16535) {
             logger.warn("Refusing to compile, maximum length exceeded, {} bytes", code.length)
             return "{}";
         }
 
-        val tmpFile = Files.createTempFile("yatcp-compiler-input-file", ".ytp");
+        val tmpFile = Files.createTempFile("yatcp-compiler-input-file", ".ytp")
         val path = tmpFile.toAbsolutePath()
         try {
             val writer = Files.newBufferedWriter(path)
