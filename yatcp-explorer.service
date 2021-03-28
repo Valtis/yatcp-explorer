@@ -1,0 +1,10 @@
+[Unit]
+Description=YATCP explorer
+After=syslog.target
+
+[Service]
+User=yatcp-explorer-user
+ExecStart=/etc/yatcp/yatcp-explorer-0.0.1-SNAPSHOT.jar
+
+[Install]
+WantedBy=multi-user.target
