@@ -70,7 +70,7 @@ fn main() : int {
                     let disasm_el = document.getElementById("disasm");
                     let json = await response.json();
 
-                    code = json["asm"];
+                    code = json["asm"] || "";
 
                     // hide/show the code div if disasm is present or not; mainly to save space in case errors are present
                     if (code.trim() !== "") {
@@ -81,8 +81,8 @@ fn main() : int {
                         disasm_el.style.display = "none";
                     }
 
-                    document.getElementById("stdout").innerText = json["program_stdout"];
-                    document.getElementById("exitcode").innerText = json["return_code"];
+                    document.getElementById("stdout").innerText = json["program_stdout"] || "";
+                    document.getElementById("exitcode").innerText = json["return_code"] || "";
                     stderr = json["compile_stderr"];
                     if (stderr === "") {
                         stderr = json["gcc_stderr"];
