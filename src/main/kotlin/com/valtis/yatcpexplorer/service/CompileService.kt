@@ -42,6 +42,9 @@ class CompileService {
 
 
                 var json_out = json_opt.orElse("{}")
+                if (json_out.trim().isEmpty()) {
+                    json_out = "{}";
+                }
                 if (json_out.length > 65535) {
 
                     logger.warn("Return json length exceeds maximum length, truncating, got {}", json_out.length)
@@ -49,6 +52,7 @@ class CompileService {
                 }
 
                 val objectMapper = jacksonObjectMapper()
+
 
                 val json_map: MutableMap<String, Any> = objectMapper.readValue(json_out);
                 json_map.put("return_code", retcode)

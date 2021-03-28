@@ -83,12 +83,12 @@ fn main() : int {
 
                     document.getElementById("stdout").innerText = json["program_stdout"] || "";
                     document.getElementById("exitcode").innerText = json["return_code"] || "";
-                    stderr = json["compile_stderr"];
+                    stderr = json["compile_stderr"] || "";
                     if (stderr === "") {
-                        stderr = json["gcc_stderr"];
+                        stderr = json["gcc_stderr"] || "";
                     }
                     if (stderr === "") {
-                        stderr = json["program_stderr"];
+                        stderr = json["program_stderr"] || "";
                     }
 
                     let ansi = new AnsiUp();
